@@ -39,7 +39,7 @@ const AboutMe = () => {
     <img 
       src={lucy} 
       alt="Lucy" 
-      className="w-96 drop-shadow-lg"
+      className="w-96 drop-shadow-lg animate-float"
       style={{
         filter: 'drop-shadow(0 0 20px rgba(130, 122, 249, 0.8)) drop-shadow(0 0 40px rgba(171, 178, 191, 0.4))'
       }}
