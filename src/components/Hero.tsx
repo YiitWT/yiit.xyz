@@ -23,7 +23,7 @@ export const Hero = () => {
                I'm a web developer who likes to mess around with other stuff too—Minecraft plugins, machine learning in Unity, whatever catches my interest really
             </p>
         </div>
-        <button className="px-2 py-1 bg-background border-primary border-2 text-center text-2xl self-start mt-10 md:ml-0 ml-4">Contact Me!</button>
+        <a href='#contact' className="px-2 py-1 bg-background border-primary border-2 text-center text-2xl self-start mt-10 md:ml-0 ml-4">Contact Me!</a>
     </div>
         <div className="hidden md:block mr-60">
             <img src={hero} alt="hero" onClick={toggleInverted} className={`
