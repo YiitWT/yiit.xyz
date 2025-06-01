@@ -143,8 +143,8 @@ const Projects = () => {
                         className={`
                             border-secondary border-2 pb-4 flex flex-col transition-all duration-300
                             ${isMobile 
-                                ? 'w-full max-w-sm h-auto mb-6' 
-                                : 'w-full max-w-sm mx-auto h-[500px] m-5'
+                                ? 'w-full max-w-sm h-auto mb-6 min-h-[500px]' 
+                                : 'w-full max-w-sm mx-auto min-h-[550px] m-5'
                             }
                         `}
                     >
@@ -155,14 +155,16 @@ const Projects = () => {
                         />
                         <div className="flex flex-col flex-1 p-4">
                             {/* Tags */}
-                            <div className="border-2 border-secondary p-2 mb-3">
-                                {project.tags.length > 0 ? 
+                            <div className="border-2 border-secondary p-2 mb-3 w-full">
+                                <p className="truncate">
+                                    {project.tags.length > 0 ? 
                                     project.tags.slice(0, 3).map((tag) => (
                                         <span key={tag} className="text-primary text-xs md:text-sm mr-2">
                                             #{tag}
                                         </span>
                                     ))
                                 : <span className="text-secondary text-xs md:text-sm">No tags available</span>}
+                                </p>
                             </div>
 
                             {/* Title */}
@@ -171,7 +173,7 @@ const Projects = () => {
                             </h1>
 
                             {/* Description */}
-                            <p className="text-secondary flex-1 text-sm md:text-base line-clamp-3 mb-4">
+                            <p className="text-secondary flex-1 text-sm md:text-base line-clamp-4 mb-4 ">
                                 {project.description}
                             </p>
 
