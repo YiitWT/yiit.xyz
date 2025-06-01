@@ -1,4 +1,3 @@
-import lucy from "../assets/lucy.png";
 
 
 const Contact = () => {
@@ -14,8 +13,8 @@ const Contact = () => {
       </div>
 
       {/* Content */}
-      <div className="flex">
-        <div className="flex flex-col gap-6 md:ml-96 mt-6 p-12 md:w-1/2 ">
+      <div className="md:flex">
+        <div className="flex flex-col gap-6 md:ml-96 mt-6 md:-12 md:w-1/3 ">
           <p className="text-xl text-secondary ">
             I'm always open to new opportunities and collaborations. If you have a project in mind, want to discuss web development, or just want to say hi, feel free to reach out!
           </p>
@@ -24,10 +23,10 @@ const Contact = () => {
 
         </div>
 
-  <div className=" mb-8 mt-16 py-2 px-6 border-2 border-secondary">
+  <div className=" mb-8 mt-4 md:ml-16 py-2 px-6 md:border-2 border-secondary ">
     <h1 className="text-xl text-white">Find me on</h1>
-    <ul className="mt-2 flex-grow flex-1">
-        <li className="text-lg font-bold">
+    <ul className="mt-2 flex-grow flex-1 list-disc md:list-none">
+        <li className="text-lg font-bold ">
             <a href="#" > 
                 <span className="text-primary"><i className="fa-brands fa-discord text-primary"></i></span> yiitwt
             </a>

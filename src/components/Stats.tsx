@@ -28,7 +28,7 @@ const Stats = () => {
       </div>
 
       {/* Content */}
-      <div className="flex">
+      <div className="flex md:overflow-hidden overflow-auto">
         <div className="flex  gap-6 md:ml-96 mt-6 p-12 md:w-1/2 ">
 
           <div className="border-2 border-secondary w-fit min-w-52">

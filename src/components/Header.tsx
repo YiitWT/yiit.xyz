@@ -92,6 +92,7 @@ const Header = () => {
         setCurrentLanguage(language.code);
         setIsLanguageOpen(false);
         console.log(`Language changed to: ${language.name}`);
+        alert("This feature is not implemented yet. Excuse my lazy ass.");
     };
 
     const handleNavClick = (e: any, route: any) => {
