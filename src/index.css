@@ -11,3 +11,8 @@
     font-family: "Fira Code", sans-serif;
     color: rgb(171, 178, 191);
 }
+img{
+    user-select: none;
+    pointer-events: none;
+    
+}

@@ -143,16 +143,12 @@ const Projects = () => {
                         className={`
                             border-secondary border-2 pb-4 flex flex-col transition-all duration-300
                             ${isMobile 
-                                ? 'w-full max-w-sm h-auto mb-6 min-h-[500px]' 
-                                : 'w-full max-w-sm mx-auto min-h-[550px] m-5'
+                                ? 'w-full max-w-sm h-auto mb-6 min-h-[300px]' 
+                                : 'w-full max-w-sm mx-auto min-h-[350px] m-5'
                             }
                         `}
                     >
-                        <img 
-                            src={project.image} 
-                            alt="Project" 
-                            className="w-full h-48 md:h-56 object-cover"
-                        />
+                        
                         <div className="flex flex-col flex-1 p-4">
                             {/* Tags */}
                             <div className="border-2 border-secondary p-2 mb-3 w-full">

@@ -8,7 +8,7 @@ const Header = () => {
     
     const routes = [
         { name: 'home', path: '/', sectionId: 'home' },
-        { name: 'works', path: '/works', sectionId: 'projects' },
+        { name: 'projects', path: '/works', sectionId: 'projects' },
         { name: 'about-me', path: '/about', sectionId: 'about-me' },
         { name: 'contact', path: '/contact', sectionId: 'contact' },
     ];
@@ -48,7 +48,7 @@ const Header = () => {
     useEffect(() => {
         const handleScroll = () => {
             const sections = routes.map(route => route.sectionId);
-            const scrollPosition = window.scrollY + 100; // Offset for header height
+            const scrollPosition = window.scrollY + 600; // Offset for header height
             
             for (let i = sections.length - 1; i >= 0; i--) {
                 const section = document.getElementById(sections[i]);
@@ -99,7 +99,7 @@ const Header = () => {
     };
 
     return (
-        <div className="w-full h-12 bg-background flex relative  top-0 z-50 border-b border-gray-200">
+        <div className="w-full h-12 bg-background sticky flex   top-0 z-50 border-b border-gray-200">
             {/* Logo Section */}
             <div className="h-full w-1/3 flex items-center justify-center md:justify-start md:pl-6">
                 <button 
@@ -115,11 +115,13 @@ const Header = () => {
                 <ul className="flex h-full w-fit items-center gap-6">
                     {routes.map((route, index) => (
                         <li key={index} className="group relative text-xl">
-                            <button onClick={(e) => handleNavClick(e, route)}>
+                            <button className='group' onClick={(e) => handleNavClick(e, route)}>
                                 <span className={`transition-colors ${
                                     activeSection === route.sectionId ? 'text-primary' : 'hover:text-primary'
                                 }`}>
-                                    <span className="text-primary">#</span>{route.name}
+                                    <span className={`transition-colors ${
+                                    activeSection === route.sectionId ? 'text-secondary' : 'text-primary'
+                                } group-hover:text-secondary`}>#</span>{route.name}
                                 </span>
                             </button>
                             <span className={`absolute -bottom-1 left-0 h-[1px] bg-primary transition-all ${
@@ -161,7 +163,7 @@ const Header = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center justify-end pr-4">
+            <div className="md:hidden w-1/3 h-full flex items-center justify-end pl-64">
                 <button 
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     className="text-2xl cursor-pointer"
