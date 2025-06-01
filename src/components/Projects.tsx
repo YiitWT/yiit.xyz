@@ -98,7 +98,7 @@ const Projects = () => {
 
     if (isLoading) {
         return (
-            <div className="bg-background w-full py-12">
+            <div className="bg-background w-full py-12" id="projects">
                 <div className="text-4xl text-white flex items-center md:ml-96 ml-4">
                     <h1 className="text-white">
                         <span className="text-primary">#</span>projects
@@ -113,7 +113,7 @@ const Projects = () => {
     }
 
     return (
-        <div className="bg-background w-full py-12">
+        <div className="bg-background w-full py-12" id="projects">
             {/* Header Section */}
             <div className="text-4xl text-white flex items-center md:ml-96 ml-4">
                 <h1 className="text-white">

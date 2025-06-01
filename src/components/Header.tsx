@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLanguageOpen, setIsLanguageOpen] = useState(false);
     const [currentLanguage, setCurrentLanguage] = useState('EN');
+    const [activeSection, setActiveSection] = useState('home');
     
     const routes = [
-        { name: 'home', path: '/' },
-        { name: 'works', path: '/works' },
-        { name: 'about-me', path: '/about' },
-        { name: 'contact', path: '/contact' },
+        { name: 'home', path: '/', sectionId: 'home' },
+        { name: 'works', path: '/works', sectionId: 'projects' },
+        { name: 'about-me', path: '/about', sectionId: 'about-me' },
+        { name: 'contact', path: '/contact', sectionId: 'contact' },
     ];
 
     const languages = [
@@ -19,18 +20,94 @@ const Header = () => {
         { code: 'FR', name: 'Français' },
     ];
 
-    const handleLanguageChange = (language) => {
+    // Smooth scroll to section
+    const scrollToSection = (sectionId:any, path:any) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            // Update URL without page reload
+            window.history.pushState({}, '', path);
+            
+            // Smooth scroll to element
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+            
+            // Update active section
+            setActiveSection(sectionId);
+            
+            // Close mobile menu if open
+            setIsMenuOpen(false);
+        } else {
+            // Fallback: navigate to the page if section doesn't exist
+            window.location.href = path;
+        }
+    };
+
+    // Handle scroll spy - detect which section is currently in view
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = routes.map(route => route.sectionId);
+            const scrollPosition = window.scrollY + 100; // Offset for header height
+            
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const section = document.getElementById(sections[i]);
+                if (section && section.offsetTop <= scrollPosition) {
+                    if (activeSection !== sections[i]) {
+                        setActiveSection(sections[i]);
+                        // Update URL to match current section
+                        const currentRoute = routes.find(route => route.sectionId === sections[i]);
+                        if (currentRoute) {
+                            window.history.replaceState({}, '', currentRoute.path);
+                        }
+                    }
+                    break;
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [activeSection]);
+
+    // Handle initial page load - scroll to section if hash exists
+    useEffect(() => {
+        const currentPath = window.location.pathname;
+        const currentRoute = routes.find(route => route.path === currentPath);
+        
+        if (currentRoute) {
+            setActiveSection(currentRoute.sectionId);
+            // Small delay to ensure DOM is loaded
+            setTimeout(() => {
+                const element = document.getElementById(currentRoute.sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
+    }, []);
+
+    const handleLanguageChange = (language : any) => {
         setCurrentLanguage(language.code);
         setIsLanguageOpen(false);
-        // Add your language change logic here
         console.log(`Language changed to: ${language.name}`);
     };
 
+    const handleNavClick = (e: any, route: any) => {
+        e.preventDefault();
+        scrollToSection(route.sectionId, route.path);
+    };
+
     return (
-        <div className="w-full h-12 bg-background flex relative">
+        <div className="w-full h-12 bg-background flex relative  top-0 z-50 border-b border-gray-200">
             {/* Logo Section */}
             <div className="h-full w-1/3 flex items-center justify-center md:justify-start md:pl-6">
-                <a href="/" className="text-2xl md:text-3xl font-bold text-center tracking-widest">YIIT</a>
+                <button 
+                    onClick={(e) => handleNavClick(e, routes[0])}
+                    className="text-2xl md:text-3xl font-bold text-center tracking-widest hover:text-primary transition-colors"
+                >
+                    YIIT
+                </button>
             </div>
 
             {/* Desktop Navigation */}
@@ -38,12 +115,18 @@ const Header = () => {
                 <ul className="flex h-full w-fit items-center gap-6">
                     {routes.map((route, index) => (
                         <li key={index} className="group relative text-xl">
-                            <span>
-                                <a href={route.path}>
+                            <button onClick={(e) => handleNavClick(e, route)}>
+                                <span className={`transition-colors ${
+                                    activeSection === route.sectionId ? 'text-primary' : 'hover:text-primary'
+                                }`}>
                                     <span className="text-primary">#</span>{route.name}
-                                </a>
-                            </span>
-                            <span className="absolute -bottom-1 left-0 w-0 transition-all h-[1px] bg-primary group-hover:w-[110%]"></span>
+                                </span>
+                            </button>
+                            <span className={`absolute -bottom-1 left-0 h-[1px] bg-primary transition-all ${
+                                activeSection === route.sectionId 
+                                    ? 'w-[110%]' 
+                                    : 'w-0 group-hover:w-[110%]'
+                            }`}></span>
                         </li>
                     ))}
                     
@@ -81,7 +164,7 @@ const Header = () => {
             <div className="md:hidden flex items-center justify-end pr-4">
                 <button 
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    className="text-2xl cursor-pointer ml-64"
+                    className="text-2xl cursor-pointer"
                 >
                     {isMenuOpen ? '✕' : '☰'}
                 </button>
@@ -93,13 +176,14 @@ const Header = () => {
                     <ul className="flex flex-col">
                         {routes.map((route, index) => (
                             <li key={index} className="border-b border-gray-100 last:border-b-0">
-                                <a 
-                                    href={route.path}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="block px-6 py-4 text-lg hover:bg-gray-50 transition-colors"
+                                <button 
+                                    onClick={(e) => handleNavClick(e, route)}
+                                    className={`w-full text-left block px-6 py-4 text-lg hover:bg-gray-50 transition-colors ${
+                                        activeSection === route.sectionId ? 'text-primary bg-gray-50' : ''
+                                    }`}
                                 >
                                     <span className="text-primary">#</span>{route.name}
-                                </a>
+                                </button>
                             </li>
                         ))}
                         

@@ -1,9 +1,16 @@
+import { useState } from 'react';
 import hero from '../assets/hero.png';
 
 
 export const Hero = () => {
+    const [inverted, setInverted] = useState(false);
+
+        const toggleInverted = () => {
+        setInverted(!inverted);
+    };
+
   return (
-    <div className="bg-background w-full h-[700px] flex items-center justify-center">
+    <div className="bg-background w-full h-[700px] flex items-center justify-center" id='home'>
     <div className="md:w-1/3:flex:flex-col ml-4 md:ml-0">
         <div className="flex-1">
             <h1 className="text-4xl font-bold">Hello! I'm
@@ -17,7 +24,11 @@ export const Hero = () => {
         <button className="px-2 py-1 bg-background border-primary border-2 text-center text-2xl self-start mt-10">Contact Me!</button>
     </div>
         <div className="hidden md:block">
-            <img src={hero} alt="hero" className='drop-shadow-xl animate-wiggle animate-infinite animate-duration-[100000ms] animate-ease-in-out'/>
+            <img src={hero} alt="hero" onClick={toggleInverted} className={`
+                'drop-shadow-xl animate-wiggle animate-infinite animate-duration-[100000ms] animate-ease-in-out'
+                ${inverted ? 'filter invert' : ''}
+                transition-all duration-500 ease-in-out
+                `}/>
             <div className='text-center w-full h-full items-center justify-center flex flex-col mt-4'>
                 <h1 className='px-2  border-2 border-primary w-fit h-fit'>I honestly dont have any pictures</h1>
             </div>
