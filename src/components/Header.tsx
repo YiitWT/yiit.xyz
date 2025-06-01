@@ -12,9 +12,9 @@ const Header = () => {
                 <a href="/" className="text-3xl font-bold text-center tracking-widest font-st">YIIT</a>
             </div>
             <div className="w-full h-full float-right flex justify-end mr-12">
-                <ul className="flex h-full w-fit items-center  gap-4 right-2">
+                <ul className="flex h-full w-fit items-center  gap-6 right-2">
                     {routes.map((route) => (
-                        <li className="group relative">
+                        <li className="group relative text-xl">
                             <span><a href={route.path}><span className="text-primary">#</span>{route.name}</a></span>
                             <span className="absolute -bottom-1 left-0 w-0 transition-all h-[1px] bg-primary group-hover:w-[110%]"></span>
                         </li>
