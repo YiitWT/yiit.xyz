@@ -39,10 +39,10 @@ const Projects = () => {
     ];
     return (
         <div className="bg-background w-full py-12">
-            <div className="text-4xl text-white flex items-center justify-center mr-40">
+            <div className="text-4xl text-white flex items-center  ml-96">
                 <h1 className="text-white"><span className="text-primary">#</span>projects</h1>
-                <div className="w-1/3 h-[1px] bg-primary pl-64 ml-8"></div>
-                <a href="/projects" className="ml-40 text-lg">View all →</a>
+                <div className="h-[1px] bg-primary w-1/2 ml-8"></div>
+                <a href="/projects" className="ml-32 text-lg">View all →</a>
             </div>
             <div className="grid grid-cols-3 gaps-2 w-fit items-center justify-center m-auto mt-10">
                 {projects.map((project, index) => (

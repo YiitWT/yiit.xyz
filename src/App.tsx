@@ -2,6 +2,7 @@ import Header from "./components/header"
 import { Hero } from "./components/Hero"
 import Projects from "./components/Projects"
 import Quote from "./components/Quote"
+import AboutMe from "./components/AboutMe"
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
         <Hero/>
         <Quote/>
         <Projects/>
+        <AboutMe/>
     </div>
   )
 }
