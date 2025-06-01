@@ -18,31 +18,36 @@ const Contact = () => {
           <p className="text-xl text-secondary ">
             I'm always open to new opportunities and collaborations. If you have a project in mind, want to discuss web development, or just want to say hi, feel free to reach out!
           </p>
-          
+
 
 
         </div>
 
-  <div className=" mb-8 mt-4 md:ml-16 py-2 px-6 md:border-2 border-secondary ">
-    <h1 className="text-xl text-white">Find me on</h1>
-    <ul className="mt-2 flex-grow flex-1 list-disc md:list-none">
-        <li className="text-lg font-bold ">
-            <a href="#" > 
+        <div className=" mb-8 mt-4 md:ml-16 py-2 px-6 md:border-2 border-secondary ">
+          <h1 className="text-xl text-white">Find me on</h1>
+          <ul className="mt-2 flex-grow flex-1 list-disc md:list-none">
+            <li className="text-lg font-bold">
+              <a target="_blank" href="https//github.com/yiitwt" >
+                <span className="text-primary"><i className="fa-brands fa-github pr-1 text-primary"></i></span> yiitwt
+              </a>
+            </li>
+            <li className="text-lg font-bold ">
+              <a target="_blank" href="#" >
                 <span className="text-primary"><i className="fa-brands fa-discord text-primary"></i></span> yiitwt
-            </a>
-        </li>
-        <li className="text-lg font-bold">
-            <a href="https://instagram.com/yiit_locked" > 
+              </a>
+            </li>
+            <li className="text-lg font-bold">
+              <a target="_blank" href="https://instagram.com/yiit_locked" >
                 <span className="text-primary"><i className="fa-brands fa-instagram text-primary pr-1"></i></span> yiit_locked
-            </a>
-        </li>
-        <li className="text-lg font-bold">
-            <a href="mailto:contact@yiit.xyz">
+              </a>
+            </li>
+            <li className="text-lg font-bold">
+              <a target="_blank" href="mailto:contact@yiit.xyz">
                 <span className="text-primary"><i className="fa-solid fa-envelope pr-1 text-primary"></i></span> contact@yiit.xyz
-            </a>
-        </li>
-    </ul>
-  </div>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
     </div>
