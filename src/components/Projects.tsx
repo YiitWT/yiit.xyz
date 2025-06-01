@@ -122,6 +122,7 @@ const Projects = () => {
                 <div className="h-[1px] bg-primary w-4 md:w-1/2 ml-4 md:ml-8"></div>
                 <a 
                     href="https://github.com/yiitwt" 
+                    target="_blank"
                     className="ml-4 md:ml-32 text-sm md:text-lg hover:text-primary transition-colors"
                 >
                     View all →
