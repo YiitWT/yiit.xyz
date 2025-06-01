@@ -5,6 +5,7 @@ import Quote from "./components/Quote"
 import AboutMe from "./components/AboutMe"
 import Footer from "./components/Footer"
 import Contact from "./components/Contact"
+import Stats from "./components/Stats"
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Hero/>
         <Quote/>
         <Projects/>
+        <Stats/>
         <AboutMe/>
         <Contact/>
         <Footer/>

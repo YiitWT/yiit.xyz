@@ -9,6 +9,7 @@ const Header = () => {
     const routes = [
         { name: 'home', path: '/', sectionId: 'home' },
         { name: 'projects', path: '/works', sectionId: 'projects' },
+        { name: 'stats', path: '/stats', sectionId: 'stats' },
         { name: 'about-me', path: '/about', sectionId: 'about-me' },
         { name: 'contact', path: '/contact', sectionId: 'contact' },
     ];
