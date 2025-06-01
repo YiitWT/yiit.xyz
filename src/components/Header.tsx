@@ -1,178 +1,150 @@
-import { useEffect, useState, useRef } from "react";
+import { useState } from 'react';
 
-interface Project {
-    title: string;
-    description: string;
-    tags: string[];
-    image: string;
-    link: string;
-}
+const Header = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+    const [currentLanguage, setCurrentLanguage] = useState('EN');
+    
+    const routes = [
+        { name: 'home', path: '/' },
+        { name: 'works', path: '/works' },
+        { name: 'about-me', path: '/about' },
+        { name: 'contact', path: '/contact' },
+    ];
 
-const Projects = () => {
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [isAnimating, setIsAnimating] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const hasFetched = useRef(false);
-    const projectsPerPage = 3;
+    const languages = [
+        { code: 'EN', name: 'English' },
+        { code: 'TR', name: 'Türkçe' },
+        { code: 'ES', name: 'Español' },
+        { code: 'FR', name: 'Français' },
+    ];
 
-    useEffect(() => {
-        // Prevent multiple API calls
-        if (hasFetched.current) return;
-        hasFetched.current = true;
-
-        const fetchProjects = async () => {
-            try {
-                setIsLoading(true);
-                const response = await fetch("https://api.github.com/users/yiitwt/repos");
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                const filteredData = data.filter((repo: any) => repo.name !== "YiitWT");
-                const formattedProjects: Project[] = filteredData.reverse().map((repo: any) => ({
-                    title: repo.name,
-                    description: repo.description || "No description provided.",
-                    tags: repo.topics || [],
-                    image: "https://placehold.co/600x400",
-                    link: repo.html_url,
-                }));
-                
-                setProjects(formattedProjects);
-            } catch (error) {
-                console.error("GitHub API error:", error);
-                // Set empty array on error to prevent infinite loading
-                setProjects([]);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchProjects();
-    }, []); // Empty dependency array
-
-    const totalPages = Math.ceil(projects.length / projectsPerPage);
-    const startIndex = currentPage * projectsPerPage;
-    const currentProjects = projects.slice(startIndex, startIndex + projectsPerPage);
-
-    const nextPage = () => {
-        if (currentPage < totalPages - 1 && !isAnimating) {
-            setIsAnimating(true);
-            setTimeout(() => {
-                setCurrentPage(currentPage + 1);
-                setIsAnimating(false);
-            }, 150);
-        }
+    const handleLanguageChange = (language) => {
+        setCurrentLanguage(language.code);
+        setIsLanguageOpen(false);
+        // Add your language change logic here
+        console.log(`Language changed to: ${language.name}`);
     };
-
-    const prevPage = () => {
-        if (currentPage > 0 && !isAnimating) {
-            setIsAnimating(true);
-            setTimeout(() => {
-                setCurrentPage(currentPage - 1);
-                setIsAnimating(false);
-            }, 150);
-        }
-    };
-
-    if (isLoading) {
-        return (
-            <div className="bg-background w-full py-12">
-                <div className="text-4xl text-white flex items-center ml-96">
-                    <h1 className="text-white">
-                        <span className="text-primary">#</span>projects
-                    </h1>
-                    <div className="h-[1px] bg-primary w-1/2 ml-8"></div>
-                </div>
-                <div className="flex justify-center items-center mt-20">
-                    <div className="text-white text-xl">Loading projects...</div>
-                </div>
-            </div>
-        );
-    }
 
     return (
-        <div className="bg-background w-full py-12">
-            <div className="text-4xl text-white flex items-center ml-96">
-                <h1 className="text-white">
-                    <span className="text-primary">#</span>projects
-                </h1>
-                <div className="h-[1px] bg-primary w-1/2 ml-8"></div>
-                <a href="https://github.com/yiitwt" className="ml-32 text-lg">
-                    View all →
-                </a>
+        <div className="w-full h-12 bg-background flex relative">
+            {/* Logo Section */}
+            <div className="h-full w-1/3 flex items-center justify-center md:justify-start md:pl-6">
+                <a href="/" className="text-2xl md:text-3xl font-bold text-center tracking-widest">YIIT</a>
             </div>
-            <div className="grid grid-cols-3 gap-6 w-fit items-stretch justify-center m-auto mt-10">
-                {currentProjects.map((project, index) => (
-                    <div
-                        key={index}
-                        className="border-secondary border-2 w-96 m-5 pb-4 flex flex-col h-[500px]"
-                    >
-                        <img src={project.image} alt="Project" />
-                        <div className="flex flex-col flex-1">
-                            <p className="border-2 border-secondary p-2">
-                                {project.tags.length > 0 ? 
-                                
-                                project.tags.slice(0, 3).map((tag) => (
-                                    <span key={tag} className="text-primary text-sm mr-2">
-                                        #{tag}
-                                    </span>
-                                ))
-                                    
-                                : "No tags available"}
-                            </p>
-                            <h1 className="text-2xl text-white font-bold p-2">{project.title}</h1>
-                            <p className="p-2 text-secondary flex-1 line-clamp-3">
-                                {project.description}
-                            </p>
-                            <a
-                                href={project.link}
-                                className="border-primary border-2 m-2 text-lg p-2 inline-block self-start text-white"
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex w-full h-full justify-end mr-12">
+                <ul className="flex h-full w-fit items-center gap-6">
+                    {routes.map((route, index) => (
+                        <li key={index} className="group relative text-xl">
+                            <span>
+                                <a href={route.path}>
+                                    <span className="text-primary">#</span>{route.name}
+                                </a>
+                            </span>
+                            <span className="absolute -bottom-1 left-0 w-0 transition-all h-[1px] bg-primary group-hover:w-[110%]"></span>
+                        </li>
+                    ))}
+                    
+                    {/* Language Selector */}
+                    <li className="relative">
+                        <button 
+                            onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                            className="text-sm cursor-pointer flex items-center gap-1 hover:text-primary transition-colors"
+                        >
+                            {currentLanguage} 
+                            <span className={`font-bold transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`}>∨</span>
+                        </button>
+                        
+                        {/* Language Dropdown */}
+                        {isLanguageOpen && (
+                            <div className="absolute top-full right-0 mt-2 bg-background border border-gray-200 rounded-md shadow-lg z-50 min-w-[120px]">
+                                {languages.map((language) => (
+                                    <button
+                                        key={language.code}
+                                        onClick={() => handleLanguageChange(language)}
+                                        className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
+                                            currentLanguage === language.code ? 'text-primary font-semibold' : ''
+                                        }`}
+                                    >
+                                        {language.name}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </li>
+                </ul>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex items-center justify-end pr-4">
+                <button 
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="text-2xl cursor-pointer ml-64"
+                >
+                    {isMenuOpen ? '✕' : '☰'}
+                </button>
+            </div>
+
+            {/* Mobile Navigation Menu */}
+            {isMenuOpen && (
+                <div className="absolute top-full left-0 w-full bg-background border-t border-gray-200 md:hidden z-40">
+                    <ul className="flex flex-col">
+                        {routes.map((route, index) => (
+                            <li key={index} className="border-b border-gray-100 last:border-b-0">
+                                <a 
+                                    href={route.path}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className="block px-6 py-4 text-lg hover:bg-gray-50 transition-colors"
+                                >
+                                    <span className="text-primary">#</span>{route.name}
+                                </a>
+                            </li>
+                        ))}
+                        
+                        {/* Mobile Language Selector */}
+                        <li className="border-b border-gray-100">
+                            <button 
+                                onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                                className="w-full text-left px-6 py-4 text-lg hover:bg-gray-50 transition-colors flex items-center justify-between"
                             >
-                                View Project
-                            </a>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            
-            {/* Pagination Controls */}
-            {totalPages > 1 && (
-                <div className="flex items-center justify-center mt-8 gap-4">
-                    <button
-                        onClick={prevPage}
-                        disabled={currentPage === 0 || isAnimating}
-                        className={`border-2 border-primary p-3 text-white transition-all duration-300 transform hover:scale-110 ${
-                            currentPage === 0 || isAnimating
-                                ? 'opacity-50 cursor-not-allowed' 
-                                : 'hover:bg-primary hover:text-black hover:shadow-lg hover:shadow-primary/30'
-                        }`}
-                    >
-                        ← Previous
-                    </button>
-                    
-                    <span className="text-white text-lg transition-all duration-300">
-                        {currentPage + 1} / {totalPages}
-                    </span>
-                    
-                    <button
-                        onClick={nextPage}
-                        disabled={currentPage >= totalPages - 1 || isAnimating}
-                        className={`border-2 border-primary p-3 text-white transition-all duration-300 transform hover:scale-110 ${
-                            currentPage >= totalPages - 1 || isAnimating
-                                ? 'opacity-50 cursor-not-allowed' 
-                                : 'hover:bg-primary hover:text-black hover:shadow-lg hover:shadow-primary/30'
-                        }`}
-                    >
-                        Next →
-                    </button>
+                                <span>Language: {currentLanguage}</span>
+                                <span className={`font-bold transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`}>∨</span>
+                            </button>
+                            
+                            {isLanguageOpen && (
+                                <div className="bg-gray-50">
+                                    {languages.map((language) => (
+                                        <button
+                                            key={language.code}
+                                            onClick={() => {
+                                                handleLanguageChange(language);
+                                                setIsMenuOpen(false);
+                                            }}
+                                            className={`w-full text-left px-8 py-3 text-base hover:bg-gray-100 transition-colors ${
+                                                currentLanguage === language.code ? 'text-primary font-semibold' : ''
+                                            }`}
+                                        >
+                                            {language.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </li>
+                    </ul>
                 </div>
+            )}
+
+            {/* Overlay for mobile menu */}
+            {isMenuOpen && (
+                <div 
+                    className="fixed inset-0 bg-black bg-opacity-25 z-30 md:hidden"
+                    onClick={() => setIsMenuOpen(false)}
+                ></div>
             )}
         </div>
     );
 };
 
-export default Projects;
+export default Header;

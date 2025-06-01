@@ -4,15 +4,15 @@ const AboutMe = () => {
     return (
        <div className="bg-background py-12 w-full">
   {/* Section Title */}
-  <div className="text-4xl text-white flex ml-96 items-center">
+  <div className="text-4xl text-white flex md:ml-96 ml-4 items-center">
     <h1 className="text-white">
       <span className="text-primary">#</span>about-me
     </h1>
-    <div className="h-[1px] bg-primary w-1/2 ml-8"></div>
+    <div className="h-[1px] bg-primary md:w-1/2 w-32 ml-8"></div>
   </div>
 
   {/* Content */}
-<div className="flex flex-col gap-6 ml-96 mt-6 p-12 w-1/2">
+<div className="flex flex-col gap-6 md:ml-96 mt-6 p-12 md:w-1/2">
   <p className="text-xl text-secondary">
     Hey! I'm Yiğit (pronounced like <span className="italic">Yeat</span>). I'm a high school student and self-taught web developer from Turkey.
   </p>

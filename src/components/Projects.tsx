@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface Project {
     title: string;
@@ -13,75 +13,46 @@ const Projects = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const abortControllerRef = useRef<AbortController | null>(null);
-    const mountedRef = useRef(true);
+    const hasFetched = useRef(false);
     const projectsPerPage = 3;
 
-    const fetchProjects = useCallback(async () => {
-        // Cancel any existing request
-        if (abortControllerRef.current) {
-            abortControllerRef.current.abort();
-        }
+    useEffect(() => {
+        // Prevent multiple API calls
+        if (hasFetched.current) return;
+        hasFetched.current = true;
 
-        // Create new abort controller
-        abortControllerRef.current = new AbortController();
-        
-        try {
-            setIsLoading(true);
-            setError(null);
-            
-            const response = await fetch("https://api.github.com/users/yiitwt/repos", {
-                signal: abortControllerRef.current.signal
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            
-            // Only update state if component is still mounted
-            if (!mountedRef.current) return;
-            
-            const filteredData = data.filter((repo: any) => repo.name !== "YiitWT");
-            const formattedProjects: Project[] = filteredData.reverse().map((repo: any) => ({
-                title: repo.name,
-                description: repo.description || "No description provided.",
-                tags: repo.topics || [],
-                image: "https://placehold.co/600x400",
-                link: repo.html_url,
-            }));
-            
-            setProjects(formattedProjects);
-        } catch (error: any) {
-            if (error.name === 'AbortError') {
-                console.log('Fetch aborted');
-                return;
-            }
-            console.error("GitHub API error:", error);
-            if (mountedRef.current) {
-                setError(error.message);
+        const fetchProjects = async () => {
+            try {
+                setIsLoading(true);
+                const response = await fetch("https://api.github.com/users/yiitwt/repos");
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                const filteredData = data.filter((repo: any) => repo.name !== "YiitWT");
+                const formattedProjects: Project[] = filteredData.reverse().map((repo: any) => ({
+                    title: repo.name,
+                    description: repo.description || "No description provided.",
+                    tags: repo.topics || [],
+                    image: "https://placehold.co/600x400",
+                    link: repo.html_url,
+                }));
+                
+                setProjects(formattedProjects);
+            } catch (error) {
+                console.error("GitHub API error:", error);
+                // Set empty array on error to prevent infinite loading
                 setProjects([]);
-            }
-        } finally {
-            if (mountedRef.current) {
+            } finally {
                 setIsLoading(false);
             }
-        }
-    }, []);
-
-    useEffect(() => {
-        fetchProjects();
-
-        // Cleanup function
-        return () => {
-            mountedRef.current = false;
-            if (abortControllerRef.current) {
-                abortControllerRef.current.abort();
-            }
         };
-    }, [fetchProjects]);
+
+        fetchProjects();
+    }, []); // Empty dependency array
 
     const totalPages = Math.ceil(projects.length / projectsPerPage);
     const startIndex = currentPage * projectsPerPage;
@@ -110,7 +81,7 @@ const Projects = () => {
     if (isLoading) {
         return (
             <div className="bg-background w-full py-12">
-                <div className="text-4xl text-white flex items-center ml-96">
+                <div className="text-4xl text-white flex items-center md:ml-96 ml-4">
                     <h1 className="text-white">
                         <span className="text-primary">#</span>projects
                     </h1>
@@ -123,36 +94,14 @@ const Projects = () => {
         );
     }
 
-    if (error) {
-        return (
-            <div className="bg-background w-full py-12">
-                <div className="text-4xl text-white flex items-center ml-96">
-                    <h1 className="text-white">
-                        <span className="text-primary">#</span>projects
-                    </h1>
-                    <div className="h-[1px] bg-primary w-1/2 ml-8"></div>
-                </div>
-                <div className="flex justify-center items-center mt-20">
-                    <div className="text-red-500 text-xl">Error loading projects: {error}</div>
-                    <button 
-                        onClick={fetchProjects}
-                        className="ml-4 border-2 border-primary p-2 text-white hover:bg-primary hover:text-black"
-                    >
-                        Retry
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="bg-background w-full py-12">
-            <div className="text-4xl text-white flex items-center ml-96">
+            <div className="text-4xl text-white flex items-center md:ml-96 ml-4">
                 <h1 className="text-white">
                     <span className="text-primary">#</span>projects
                 </h1>
-                <div className="h-[1px] bg-primary w-1/2 ml-8"></div>
-                <a href="https://github.com/yiitwt" className="ml-32 text-lg">
+                <div className="h-[1px] bg-primary md:w-1/2 w-4 ml-8"></div>
+                <a href="https://github.com/yiitwt" className="md:ml-32 ml-4 text-lg">
                     View all →
                 </a>
             </div>
