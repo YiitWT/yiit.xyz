@@ -1,4 +1,3 @@
-import lucy from "../assets/lucy.png";
 
 
 const Stats = () => {
