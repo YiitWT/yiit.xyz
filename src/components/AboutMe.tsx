@@ -4,7 +4,7 @@ const AboutMe = () => {
     return (
        <div className="bg-background py-12 w-full">
   {/* Section Title */}
-  <div className="text-4xl text-white flex md:ml-96 ml-4 items-center">
+  <div className="text-4xl text-white flex md:ml-96 ml-4 items-center ">
     <h1 className="text-white">
       <span className="text-primary">#</span>about-me
     </h1>

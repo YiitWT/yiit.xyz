@@ -13,8 +13,21 @@ const Projects = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [isMobile, setIsMobile] = useState(false);
     const hasFetched = useRef(false);
-    const projectsPerPage = 3;
+
+    // Check if screen is mobile
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+
+    const projectsPerPage = isMobile ? 1 : 3;
 
     useEffect(() => {
         // Prevent multiple API calls
@@ -54,6 +67,11 @@ const Projects = () => {
         fetchProjects();
     }, []); // Empty dependency array
 
+    // Reset to first page when switching between mobile/desktop
+    useEffect(() => {
+        setCurrentPage(0);
+    }, [isMobile]);
+
     const totalPages = Math.ceil(projects.length / projectsPerPage);
     const startIndex = currentPage * projectsPerPage;
     const currentProjects = projects.slice(startIndex, startIndex + projectsPerPage);
@@ -85,7 +103,7 @@ const Projects = () => {
                     <h1 className="text-white">
                         <span className="text-primary">#</span>projects
                     </h1>
-                    <div className="h-[1px] bg-primary w-1/2 ml-8"></div>
+             <div className="h-[1px] bg-primary md:w-1/2 w-32 ml-8"></div>
                 </div>
                 <div className="flex justify-center items-center mt-20">
                     <div className="text-white text-xl">Loading projects...</div>
@@ -96,41 +114,72 @@ const Projects = () => {
 
     return (
         <div className="bg-background w-full py-12">
+            {/* Header Section */}
             <div className="text-4xl text-white flex items-center md:ml-96 ml-4">
                 <h1 className="text-white">
                     <span className="text-primary">#</span>projects
                 </h1>
-                <div className="h-[1px] bg-primary md:w-1/2 w-4 ml-8"></div>
-                <a href="https://github.com/yiitwt" className="md:ml-32 ml-4 text-lg">
+                <div className="h-[1px] bg-primary w-4 md:w-1/2 ml-4 md:ml-8"></div>
+                <a 
+                    href="https://github.com/yiitwt" 
+                    className="ml-4 md:ml-32 text-sm md:text-lg hover:text-primary transition-colors"
+                >
                     View all →
                 </a>
             </div>
-            <div className="grid grid-cols-3 gap-6 w-fit items-stretch justify-center m-auto mt-10">
+
+            {/* Projects Grid */}
+            <div className={`
+                ${isMobile 
+                    ? 'flex flex-col items-center px-4' 
+                    : 'grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto px-4'
+                } 
+                mt-10
+            `}>
                 {currentProjects.map((project, index) => (
                     <div
                         key={index}
-                        className="border-secondary border-2 w-96 m-5 pb-4 flex flex-col h-[500px]"
+                        className={`
+                            border-secondary border-2 pb-4 flex flex-col transition-all duration-300
+                            ${isMobile 
+                                ? 'w-full max-w-sm h-auto mb-6' 
+                                : 'w-full max-w-sm mx-auto h-[500px] m-5'
+                            }
+                        `}
                     >
-                        <img src={project.image} alt="Project" />
-                        <div className="flex flex-col flex-1">
-                            <p className="border-2 border-secondary p-2">
+                        <img 
+                            src={project.image} 
+                            alt="Project" 
+                            className="w-full h-48 md:h-56 object-cover"
+                        />
+                        <div className="flex flex-col flex-1 p-4">
+                            {/* Tags */}
+                            <div className="border-2 border-secondary p-2 mb-3">
                                 {project.tags.length > 0 ? 
-                                
-                                project.tags.slice(0, 3).map((tag) => (
-                                    <span key={tag} className="text-primary text-sm mr-2">
-                                        #{tag}
-                                    </span>
-                                ))
-                                    
-                                : "No tags available"}
-                            </p>
-                            <h1 className="text-2xl text-white font-bold p-2">{project.title}</h1>
-                            <p className="p-2 text-secondary flex-1 line-clamp-3">
+                                    project.tags.slice(0, 3).map((tag) => (
+                                        <span key={tag} className="text-primary text-xs md:text-sm mr-2">
+                                            #{tag}
+                                        </span>
+                                    ))
+                                : <span className="text-secondary text-xs md:text-sm">No tags available</span>}
+                            </div>
+
+                            {/* Title */}
+                            <h1 className="text-xl md:text-2xl text-white font-bold mb-2 line-clamp-2">
+                                {project.title}
+                            </h1>
+
+                            {/* Description */}
+                            <p className="text-secondary flex-1 text-sm md:text-base line-clamp-3 mb-4">
                                 {project.description}
                             </p>
+
+                            {/* View Project Link */}
                             <a
                                 href={project.link}
-                                className="border-primary border-2 m-2 text-lg p-2 inline-block self-start text-white"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="border-primary border-2 text-sm md:text-lg p-2 inline-block self-start text-white hover:bg-primary hover:text-black transition-all duration-300 transform hover:scale-105"
                             >
                                 View Project
                             </a>
@@ -141,34 +190,49 @@ const Projects = () => {
             
             {/* Pagination Controls */}
             {totalPages > 1 && (
-                <div className="flex items-center justify-center mt-8 gap-4">
+                <div className="flex items-center justify-center mt-8 gap-4 px-4">
                     <button
                         onClick={prevPage}
                         disabled={currentPage === 0 || isAnimating}
-                        className={`border-2 border-primary p-3 text-white transition-all duration-300 transform hover:scale-110 ${
-                            currentPage === 0 || isAnimating
+                        className={`
+                            border-2 border-primary p-2 md:p-3 text-sm md:text-base text-white 
+                            transition-all duration-300 transform hover:scale-110
+                            ${currentPage === 0 || isAnimating
                                 ? 'opacity-50 cursor-not-allowed' 
                                 : 'hover:bg-primary hover:text-black hover:shadow-lg hover:shadow-primary/30'
-                        }`}
+                            }
+                        `}
                     >
-                        ← Previous
+                        <span className="hidden md:inline">← Previous</span>
+                        <span className="md:hidden">←</span>
                     </button>
                     
-                    <span className="text-white text-lg transition-all duration-300">
+                    <span className="text-white text-base md:text-lg transition-all duration-300 mx-2">
                         {currentPage + 1} / {totalPages}
                     </span>
                     
                     <button
                         onClick={nextPage}
                         disabled={currentPage >= totalPages - 1 || isAnimating}
-                        className={`border-2 border-primary p-3 text-white transition-all duration-300 transform hover:scale-110 ${
-                            currentPage >= totalPages - 1 || isAnimating
+                        className={`
+                            border-2 border-primary p-2 md:p-3 text-sm md:text-base text-white 
+                            transition-all duration-300 transform hover:scale-110
+                            ${currentPage >= totalPages - 1 || isAnimating
                                 ? 'opacity-50 cursor-not-allowed' 
                                 : 'hover:bg-primary hover:text-black hover:shadow-lg hover:shadow-primary/30'
-                        }`}
+                            }
+                        `}
                     >
-                        Next →
+                        <span className="hidden md:inline">Next →</span>
+                        <span className="md:hidden">→</span>
                     </button>
+                </div>
+            )}
+
+            {/* Mobile Project Counter */}
+            {isMobile && projects.length > 0 && (
+                <div className="text-center mt-4 text-secondary text-sm">
+                    Showing {startIndex + 1} of {projects.length} projects
                 </div>
             )}
         </div>
