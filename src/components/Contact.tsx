@@ -27,7 +27,7 @@ const Contact = () => {
           <h1 className="text-xl text-white">Find me on</h1>
           <ul className="mt-2 flex-grow flex-1 list-disc md:list-none">
             <li className="text-lg font-bold">
-              <a target="_blank" href="https//github.com/yiitwt" >
+              <a target="_blank" href="https://github.com/yiitwt" >
                 <span className="text-primary"><i className="fa-brands fa-github pr-1 text-primary"></i></span> yiitwt
               </a>
             </li>
