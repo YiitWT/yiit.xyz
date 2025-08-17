@@ -10,15 +10,15 @@ import Stats from "./components/Stats"
 function App() {
 
   return (
-    <div className="bg-background md:grid md:gap-y-4">
-        <Header/>
-        <Hero/>
-        <Quote/>
-        <Projects/>
-        <Stats/>
-        <AboutMe/>
-        <Contact/>
-        <Footer/>
+    <div className="bg-background md:grid ">
+      <Header />
+      <Hero />
+      <Quote />
+      <Projects />
+      <Stats />
+      <AboutMe />
+      <Contact />
+      <Footer />
     </div>
   )
 }

@@ -125,8 +125,8 @@ const Header = () => {
                                 </span>
                             </button>
                             <span className={`absolute -bottom-1 left-0 h-[1px] bg-primary transition-all ${activeSection === route.sectionId
-                                    ? 'w-[110%]'
-                                    : 'w-0 group-hover:w-[110%]'
+                                ? 'w-[110%]'
+                                : 'w-0 group-hover:w-[110%]'
                                 }`}></span>
                         </li>
                     ))}
