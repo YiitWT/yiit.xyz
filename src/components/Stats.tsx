@@ -1,13 +1,14 @@
 const Stats = () => {
-  const Languages = ["JavaScript", "TypeScript", "Python", "Java"];
-  const Tools = ["VSCode", "Git", "oh-my-posh", "Figma", "Zen Browser"];
+  const Languages = ["JavaScript", "TypeScript", "Python", "Java", "C#"];
+  const Tools = ["VSCode", "Git", "oh-my-posh", "Figma", "Brave Browser"];
   const Frameworks = ["React", "Vite", "Express.js", "Astro"];
   const Database = ["MongoDB", "NoSQLite", "SQLite", "MySQL"];
+  const experience = new Date().getFullYear() - 2021;
   const myStats = [
-    "Age: 16",
+    "Age: " + (new Date().getFullYear() - 2009),
     "Gender: Male",
     "Location: Turkiye",
-    "Experience: 3 Yrs",
+    `Experience: ${experience} Yrs`,
     "Projects: 20+",
     "Commits: 100+",
   ]
@@ -16,7 +17,7 @@ const Stats = () => {
     <div className="bg-background my-24 w-full overflow-x-hidden" id="stats">
       {/* Section Title */}
       <div className="container mx-auto px-4">
-        <div className="text-4xl text-white flex items-center mb-8 md:ml-96 ml-4">
+        <div className="text-4xl text-white flex items-center mb-8 md:ml-24  xl:ml-96 ">
           <h1 className="text-white">
             <span className="text-primary">#</span>stats
           </h1>

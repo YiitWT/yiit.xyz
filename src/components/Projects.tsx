@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 interface Project {
     title: string;
@@ -9,12 +9,56 @@ interface Project {
 }
 
 const Projects = () => {
-    const [projects, setProjects] = useState<Project[]>([]);
+    const githubURL = "https://github.com/yiitwt/";
+
+    const [projects] = useState<Project[]>([
+        {
+            title: "yiit.xyz",
+            description: "This website, build on Vite (react), nothing fancy",
+            tags: ["react", "nodejs", "typescript"],
+            image: "https://placehold.co/600x400/3b82f6/ffffff?text=Portfolio",
+            link: `${githubURL}yiit.xyz`
+        },
+        {
+            title: "DiscordReporter",
+            description: "A lightweight Discord-logger minecraft plugin to keep your server safe and moderated.",
+            tags: ["java", "spigot", "plugin"],
+            image: "https://placehold.co/600x400/10b981/ffffff?text=DiscordReporter",
+            link: `${githubURL}DiscordReporter`
+        },
+        {
+            title: "igVideoYoinker",
+            description: "An Instagram bot that automatically reposts reels from direct messages with automated video processing and rate limit handling.",
+            tags: ["python", "automated", "bot"],
+            image: "https://placehold.co/600x400/f59e0b/ffffff?text=Video+Downloader",
+            link: `${githubURL}igVideoYoinker`
+        },
+        {
+            title: "Toaster.js",
+            description: "A lightweight, vanilla JavaScript toast notification library for displaying user-friendly messages in web applications.",
+            tags: ["JavaScript", "responsive", "basic"],
+            image: "https://placehold.co/600x400/8b5cf6/ffffff?text=Toaster.JS",
+            link: `${githubURL}Toaster.js`
+        },
+        {
+            title: "WebhookPanel ",
+            description: "A basic webhook generator panel for discord. Nothing too crazy.",
+            tags: ["discord", "nodejs", "nodejs", "realtime"],
+            image: "https://placehold.co/600x400/ef4444/ffffff?text=WebhookPanel",
+            link: `${githubURL}WebhookPanel`
+        },
+        {
+            title: "barber-booking",
+            description: "[NOT-COMPLATED] Full-stack barber booking platform built with Next.js, featuring a customer booking page and a management dashboard.",
+            tags: ["nextjs", "prisma", "postgresql", "markdown"],
+            image: "https://placehold.co/600x400/06b6d4/ffffff?text=Barber+Booking",
+            link: `${githubURL}barber-booking`
+        }
+    ]);
+
     const [currentPage, setCurrentPage] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
-    const hasFetched = useRef(false);
 
     // Check if screen is mobile
     useEffect(() => {
@@ -28,44 +72,6 @@ const Projects = () => {
     }, []);
 
     const projectsPerPage = isMobile ? 1 : 3;
-
-    useEffect(() => {
-        // Prevent multiple API calls
-        if (hasFetched.current) return;
-        hasFetched.current = true;
-
-        const fetchProjects = async () => {
-            try {
-                setIsLoading(true);
-                const response = await fetch("https://api.github.com/users/yiitwt/repos");
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                const filteredData = data.filter((repo: any) => repo.name !== "YiitWT");
-                const formattedProjects: Project[] = filteredData.reverse().map((repo: any) => ({
-                    title: repo.name,
-                    description: repo.description || "No description provided.",
-                    tags: repo.topics || [],
-                    image: "https://placehold.co/600x400",
-                    link: repo.html_url,
-                }));
-
-                setProjects(formattedProjects);
-            } catch (error) {
-                console.error("GitHub API error:", error);
-                // Set empty array on error to prevent infinite loading
-                setProjects([]);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchProjects();
-    }, []); // Empty dependency array
 
     // Reset to first page when switching between mobile/desktop
     useEffect(() => {
@@ -96,36 +102,20 @@ const Projects = () => {
         }
     };
 
-    if (isLoading) {
-        return (
-            <div className="bg-background w-full py-12" id="projects">
-                <div className="text-4xl text-white flex items-center md:ml-96 ml-4">
-                    <h1 className="text-white">
-                        <span className="text-primary">#</span>projects
-                    </h1>
-                    <div className="h-[1px] bg-primary md:w-1/2 w-32 ml-8"></div>
-                </div>
-                <div className="flex justify-center items-center mt-20">
-                    <div className="text-white text-xl">Loading projects...</div>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="bg-background w-full py-12" id="projects">
             {/* Header Section */}
-            <div className="text-4xl text-white flex items-center md:ml-96 ml-4">
+            <div className="text-4xl text-white flex items-center md:ml-24 xl:ml-96 ml-4">
                 <h1 className="text-white">
                     <span className="text-primary">#</span>projects
                 </h1>
-                <div className="h-[1px] bg-primary w-4 md:w-1/2 ml-4 md:ml-8"></div>
+                <div className="h-[1px] bg-primary w-1/2 ml-4 md:ml-8"></div>
                 <a
-                    href="https://github.com/yiitwt"
+                    href={githubURL}
                     target="_blank"
                     className="ml-4 md:ml-32 text-sm md:text-lg hover:text-primary transition-colors"
                 >
-                    View all →
+                    View more →
                 </a>
             </div>
 
@@ -133,13 +123,13 @@ const Projects = () => {
             <div className={`
                 ${isMobile
                     ? 'flex flex-col items-center px-4'
-                    : 'grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto px-4'
+                    : 'grid grid-cols-3 gap-6 max-w-7xl mx-auto px-4'
                 } 
                 mt-10
             `}>
                 {currentProjects.map((project, index) => (
                     <div
-                        key={index}
+                        key={`${project.title}-${index}`}
                         className={`
                             border-secondary border-2 pb-4 flex flex-col transition-all duration-300
                             ${isMobile
@@ -148,6 +138,15 @@ const Projects = () => {
                             }
                         `}
                     >
+                        {/* Project Image */}
+                        <div className="h-32 md:h-40 bg-secondary flex items-center justify-center overflow-hidden">
+                            <img
+                                src={project.image}
+                                alt={project.title}
+                                className="w-full h-full object-cover"
+                                loading="lazy"
+                            />
+                        </div>
 
                         <div className="flex flex-col flex-1 p-4">
                             {/* Tags */}
@@ -169,7 +168,7 @@ const Projects = () => {
                             </h1>
 
                             {/* Description */}
-                            <p className="text-secondary flex-1 text-sm md:text-base line-clamp-4 mb-4 ">
+                            <p className="text-secondary flex-1 text-sm md:text-base line-clamp-4 mb-4">
                                 {project.description}
                             </p>
 

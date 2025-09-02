@@ -10,7 +10,7 @@ const Header = () => {
         { name: 'home', path: '/', sectionId: 'home' },
         { name: 'projects', path: '/', sectionId: 'projects' },
         { name: 'stats', path: '/', sectionId: 'stats' },
-        { name: 'about-me', path: '/', sectionId: 'about-me' },
+        { name: 'experience', path: '/', sectionId: 'experience' },
         { name: 'contact', path: '/', sectionId: 'contact' },
     ];
 
