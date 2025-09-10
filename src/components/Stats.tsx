@@ -53,7 +53,7 @@ const Stats = () => {
                   <div key={index} className="text-secondary text-lg mb-1">
                     {language}
                   </div>
-                ))}q
+                ))}
               </div>
             </div>
 
