@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 import en from './en.json';
-import tr from './tr.json';
 
 type Translations = typeof en;
 
