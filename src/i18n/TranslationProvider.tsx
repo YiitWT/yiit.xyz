@@ -14,8 +14,7 @@ interface TranslationContextProps {
 const TranslationContext = createContext<TranslationContextProps | undefined>(undefined);
 
 const translations: Record<string, Translations> = {
-    EN: en,
-    TR: tr,
+    EN: en
 };
 
 export const TranslationProvider = ({ children }: { children: ReactNode }) => {
