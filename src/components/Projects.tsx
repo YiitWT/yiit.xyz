@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "../i18n/TranslationProvider";
 
 interface Project {
     title: string;
@@ -11,45 +12,47 @@ interface Project {
 const Projects = () => {
     const githubURL = "https://github.com/yiitwt/";
 
+    const { t } = useTranslation();
+    // @ts-ignore: Allow custom translation keys for project descriptions
     const [projects] = useState<Project[]>([
         {
             title: "yiit.xyz",
-            description: "This website, build on Vite (react), nothing fancy",
+            description: t("project_portfolio_desc"),
             tags: ["react", "nodejs", "typescript"],
             image: "https://placehold.co/600x400/3b82f6/ffffff?text=Portfolio",
             link: `${githubURL}yiit.xyz`
         },
         {
             title: "DiscordReporter",
-            description: "A lightweight Discord-logger minecraft plugin to keep your server safe and moderated.",
+            description: t("project_discord_reporter_desc"),
             tags: ["java", "spigot", "plugin"],
             image: "https://placehold.co/600x400/10b981/ffffff?text=DiscordReporter",
             link: `${githubURL}DiscordReporter`
         },
         {
             title: "igVideoYoinker",
-            description: "An Instagram bot that automatically reposts reels from direct messages with automated video processing and rate limit handling.",
+            description: t("project_ig_video_yoinker_desc"),
             tags: ["python", "automated", "bot"],
             image: "https://placehold.co/600x400/f59e0b/ffffff?text=Video+Downloader",
             link: `${githubURL}igVideoYoinker`
         },
         {
             title: "Toaster.js",
-            description: "A lightweight, vanilla JavaScript toast notification library for displaying user-friendly messages in web applications.",
+            description: t("project_toasterjs_desc"),
             tags: ["JavaScript", "responsive", "basic"],
             image: "https://placehold.co/600x400/8b5cf6/ffffff?text=Toaster.JS",
             link: `${githubURL}Toaster.js`
         },
         {
             title: "WebhookPanel ",
-            description: "A basic webhook generator panel for discord. Nothing too crazy.",
+            description: t("project_webhook_panel_desc"),
             tags: ["discord", "nodejs", "nodejs", "realtime"],
             image: "https://placehold.co/600x400/ef4444/ffffff?text=WebhookPanel",
             link: `${githubURL}WebhookPanel`
         },
         {
             title: "barber-booking",
-            description: "[NOT-COMPLATED] Full-stack barber booking platform built with Next.js, featuring a customer booking page and a management dashboard.",
+            description: t("project_barber_booking_desc"),
             tags: ["nextjs", "prisma", "postgresql", "markdown"],
             image: "https://placehold.co/600x400/06b6d4/ffffff?text=Barber+Booking",
             link: `${githubURL}barber-booking`

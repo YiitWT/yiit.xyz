@@ -1,17 +1,20 @@
+import { useTranslation } from '../i18n/TranslationProvider';
+
 const Stats = () => {
+  const { t } = useTranslation();
   const Languages = ["JavaScript", "TypeScript", "Python", "Java", "C#"];
   const Tools = ["VSCode", "Git", "oh-my-posh", "Figma", "Brave Browser"];
   const Frameworks = ["React", "Vite", "Express.js", "Astro"];
   const Database = ["MongoDB", "NoSQLite", "SQLite", "MySQL"];
   const experience = new Date().getFullYear() - 2021;
   const myStats = [
-    "Age: " + (new Date().getFullYear() - 2009),
-    "Gender: Male",
-    "Location: Turkiye",
-    `Experience: ${experience} Yrs`,
-    "Projects: 20+",
-    "Commits: 100+",
-  ]
+    t('Age') + ': ' + (new Date().getFullYear() - 2009),
+    t('Gender') + ': ' + t('Male'),
+    t('Location') + ': ' + t('Turkiye'),
+    t('Experience') + ': ' + experience + ' ' + t('Yrs'),
+    t('Projects') + ': 20+',
+    t('Commits') + ': 290+',
+  ];
 
   return (
     <div className="bg-background my-24 w-full overflow-x-hidden" id="stats">
@@ -19,7 +22,7 @@ const Stats = () => {
       <div className="container mx-auto px-4">
         <div className="text-4xl text-white flex items-center mb-8 md:ml-24  xl:ml-96 ">
           <h1 className="text-white">
-            <span className="text-primary">#</span>stats
+            <span className="text-primary">#</span>{t('stats')}
           </h1>
           <div className="h-[1px] bg-primary flex-1 ml-8 max-w-md"></div>
         </div>
@@ -30,7 +33,7 @@ const Stats = () => {
 
             <div className="border-2 border-secondary w-full">
               <div className="border-b-2 border-secondary py-2 px-4">
-                <h1 className="text-white text-lg">My Stats</h1>
+                <h1 className="text-white text-lg">{t('myStats') || t('stats')}</h1>
               </div>
               <div className="p-4">
                 {myStats.map((stat, index) => (
@@ -43,20 +46,20 @@ const Stats = () => {
 
             <div className="border-2 border-secondary w-full">
               <div className="border-b-2 border-secondary py-2 px-4">
-                <h1 className="text-white text-lg">Languages</h1>
+                <h1 className="text-white text-lg">{t('languages')}</h1>
               </div>
               <div className="p-4">
                 {Languages.map((language, index) => (
                   <div key={index} className="text-secondary text-lg mb-1">
                     {language}
                   </div>
-                ))}
+                ))}q
               </div>
             </div>
 
             <div className="border-2 border-secondary w-full">
               <div className="border-b-2 border-secondary py-2 px-4">
-                <h1 className="text-white text-lg">Tools</h1>
+                <h1 className="text-white text-lg">{t('tools')}</h1>
               </div>
               <div className="p-4">
                 {Tools.map((tool, index) => (
@@ -69,7 +72,7 @@ const Stats = () => {
 
             <div className="border-2 border-secondary w-full">
               <div className="border-b-2 border-secondary py-2 px-4">
-                <h1 className="text-white text-lg">Frameworks</h1>
+                <h1 className="text-white text-lg">{t('frameworks')}</h1>
               </div>
               <div className="p-4">
                 {Frameworks.map((framework, index) => (
@@ -82,7 +85,7 @@ const Stats = () => {
 
             <div className="border-2 border-secondary w-full">
               <div className="border-b-2 border-secondary py-2 px-4">
-                <h1 className="text-white text-lg">Database(s)</h1>
+                <h1 className="text-white text-lg">{t('databases')}</h1>
               </div>
               <div className="p-4">
                 {Database.map((database, index) => (

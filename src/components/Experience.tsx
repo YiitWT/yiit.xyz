@@ -1,52 +1,56 @@
 
+import { useTranslation } from "../i18n/TranslationProvider";
+
 const AboutMe = () => {
+  const { t } = useTranslation();
+  // @ts-ignore: Allow custom translation keys for experience fields
   const experiences = [
     {
       year: "2025",
-      title: "Software Development Intern",
-      company: "MayITC",
-      duration: "May 2025 - Aug 2025",
-      skills: ["OOP", "Agile", "Web Development", "HR"],
-      description: "Completed my first international internship in Barcelona through the EU Erasmus+ program. Gained hands-on experience in professional workflows, contributed to real projects, and continued to sharpen my development skills.",
+      title: t("exp_intern_title"),
+      company: t("exp_intern_company"),
+      duration: t("exp_intern_duration"),
+      skills: [t("exp_intern_skill_oop"), t("exp_intern_skill_agile"), t("exp_intern_skill_webdev"), t("exp_intern_skill_hr")],
+      description: t("exp_intern_desc"),
       color: "bg-primary"
     },
     {
       year: "2024",
-      title: "Independent Developer",
-      company: "Freelance & Personal Projects",
-      duration: "Jan 2024 - Dec 2024",
-      skills: ["Node.js", "Discord.js", "React", "Hosting Services", "Modding"],
-      description: "Launched several projects, including Discord bots, Minecraft mods, and hosting services. Built and maintained websites for two bridal companies, applying both technical and client-facing skills.",
-      color: "bg-secondary"
+      title: t("exp_indie_title"),
+      company: t("exp_indie_company"),
+      duration: t("exp_indie_duration"),
+      skills: [t("exp_indie_skill_nodejs"), t("exp_indie_skill_discordjs"), t("exp_indie_skill_react"), t("exp_indie_skill_hosting"), t("exp_indie_skill_modding")],
+      description: t("exp_indie_desc"),
+      color: "bg_secondary"
     },
     {
       year: "2023",
-      title: "High School Student",
-      company: "Arkas Meslek Lisesi",
-      duration: "Sep 2023 - Present",
-      skills: ["Software Engineering Fundamentals", "Problem Solving", "Collaboration"],
-      description: "Began studies at Arkas Vocational High School, specializing in software engineering. Balanced coursework with personal development and freelance projects.",
+      title: t("exp_student_title"),
+      company: t("exp_student_company"),
+      duration: t("exp_student_duration"),
+      skills: [t("exp_student_skill_fundamentals"), t("exp_student_skill_problem"), t("exp_student_skill_collab")],
+      description: t("exp_student_desc"),
       color: "bg-primary"
     },
     {
       year: "2022",
-      title: "Freelance Web Developer",
-      company: "Self-Employed",
-      duration: "[I DONT REMEMBER THE DATES]",
-      skills: ["HTML", "CSS", "JavaScript", "Freelancing"],
-      description: "Started building websites independently and took on freelance projects through Fiverr, delivering solutions to real clients and learning to manage end-to-end development.",
+      title: t("exp_freelance_title"),
+      company: t("exp_freelance_company"),
+      duration: t("exp_freelance_duration"),
+      skills: [t("exp_freelance_skill_html"), t("exp_freelance_skill_css"), t("exp_freelance_skill_js"), t("exp_freelance_skill_freelancing")],
+      description: t("exp_freelance_desc"),
       color: "bg-secondary"
     },
     {
       year: "2021",
-      title: "Hobby Developer",
-      company: "Self-Learning",
-      duration: "Sep 2021 - []",
-      skills: ["Node.js", "Discord.js", "Bot Development"],
-      description: "Discovered coding as a hobby by creating Discord bots using Node.js and Discord.js, which sparked my passion for programming.",
+      title: t("exp_hobby_title"),
+      company: t("exp_hobby_company"),
+      duration: t("exp_hobby_duration"),
+      skills: [t("exp_hobby_skill_nodejs"), t("exp_hobby_skill_discordjs"), t("exp_hobby_skill_botdev")],
+      description: t("exp_hobby_desc"),
       color: "bg-primary"
     }
-  ]
+  ];
 
 
   return (
