@@ -21,7 +21,7 @@ const AboutMe = () => {
       duration: t("exp_indie_duration"),
       skills: [t("exp_indie_skill_nodejs"), t("exp_indie_skill_discordjs"), t("exp_indie_skill_react"), t("exp_indie_skill_hosting"), t("exp_indie_skill_modding")],
       description: t("exp_indie_desc"),
-      color: "bg_secondary"
+      color: "bg-secondary"
     },
     {
       year: "2023",
