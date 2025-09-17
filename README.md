@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# yiit.xyz – Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the source code for **yiit.xyz**, the personal portfolio of Yiğit, a full-stack web developer. This site is designed to showcase my skills, experience, and projects in a modern, interactive, and professional format.
 
-Currently, two official plugins are available:
+## 🚀 Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Purpose:** Demonstrate my technical and creative abilities to potential employers, collaborators, and clients.
+- **Audience:** HR professionals, recruiters, and anyone interested in my work or background.
+- **Live Site:** [yiit.xyz](https://yiit.xyz)
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend:** React (with Vite for fast development and build)
+- **Styling:** Tailwind CSS for rapid, responsive UI
+- **Internationalization:** Custom i18n system supporting multiple languages
+- **Tooling:** ESLint, PostCSS, TypeScript for code quality and maintainability
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## ✨ Key Features
+
+- **Responsive Design:** Works seamlessly on desktop and mobile
+- **Smooth Navigation:** Custom scroll system for section navigation
+- **Multi-language Support:** English, Turkish, Spanish, French
+- **Project Showcase:** Highlights real-world projects and freelance work
+- **Experience Timeline:** Details internships, freelance, and education
+- **Contact Section:** Easy ways to reach out (GitHub, Instagram, Email)
+- **Quotes & Stats:** Personal touch with motivational quotes and developer stats
+
+## 📂 Structure & Organization
+
+- `src/components/` – Modular React components for each section (Hero, Projects, Experience, Contact, etc.)
+- `src/i18n/` – Internationalization files and translation provider
+- `src/utils/` – Reusable utilities (scroll system, hooks)
+- `public/` – Static assets and images
+
+## 🧑‍💻 Why This Matters for HR
+
+- **Real Client Work:** Includes freelance and internship experience with real deliverables
+- **Modern Practices:** Uses current best practices in React, TypeScript, and CSS
+- **Soft Skills:** Collaboration, problem-solving, and adaptability highlighted in project and experience sections
+- **Continuous Learning:** Shows progression from hobbyist to professional developer
+- **Code Quality:** Linted, typed, and well-organized for maintainability
+
+## 📝 How to Review
+
+1. **Browse the Live Site:** See the UI, navigation, and responsiveness in action
+2. **Review the Code:** Check modularity, clarity, and use of modern tools
+3. **Explore Projects:** Each project includes a description and relevant skills
+4. **Contact Me:** Use the contact section for direct communication
+
+## 📦 Getting Started (Local Development)
+
+```bash
+# Clone the repo
+git clone https://github.com/YiitWT/yiit.xyz.git
+cd yiit.xyz
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🤝 Connect
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **GitHub:** [yiitwt](https://github.com/yiitwt)
+- **Email:** contact@yiit.xyz
+- **Instagram:** @yiit.xyz
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+
+> Thank you for reviewing my portfolio! I look forward to connecting and discussing how I can contribute to your team.
