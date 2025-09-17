@@ -36,7 +36,7 @@ const Contact = () => {
               </a>
             </li>
             <li className="text-lg font-bold">
-              <a target="_blank" href="https://instagram.com/yiit_locked" >
+              <a target="_blank" href="https://instagram.com/yiit.xyz" >
                 <span className="text-primary"><i className="fa-brands fa-instagram text-primary pr-1"></i></span> {t("contact_instagram")}
               </a>
             </li>
