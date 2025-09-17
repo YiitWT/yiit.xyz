@@ -32,21 +32,6 @@ Welcome to the source code for **yiit.xyz**, the personal portfolio of Yiğit, a
 - `src/utils/` – Reusable utilities (scroll system, hooks)
 - `public/` – Static assets and images
 
-## 🧑‍💻 Why This Matters for HR
-
-- **Real Client Work:** Includes freelance and internship experience with real deliverables
-- **Modern Practices:** Uses current best practices in React, TypeScript, and CSS
-- **Soft Skills:** Collaboration, problem-solving, and adaptability highlighted in project and experience sections
-- **Continuous Learning:** Shows progression from hobbyist to professional developer
-- **Code Quality:** Linted, typed, and well-organized for maintainability
-
-## 📝 How to Review
-
-1. **Browse the Live Site:** See the UI, navigation, and responsiveness in action
-2. **Review the Code:** Check modularity, clarity, and use of modern tools
-3. **Explore Projects:** Each project includes a description and relevant skills
-4. **Contact Me:** Use the contact section for direct communication
-
 ## 📦 Getting Started (Local Development)
 
 ```bash
