@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { scrollToSection } from '../utils/scrollSystem';
 import hero from '../assets/hero.png';
 
 
@@ -23,11 +24,16 @@ export const Hero = () => {
                         Yo, my name is <span className='font-semibold text-white'>Yiğit</span>. I’m a full-stack web developer from <span className='text-red-600 font-semibold'>Turk<span className='text-white'>iye</span></span>. I’m also passionate about rap music, philosophy and science! I’m always open to new knowledge if it'll improve me in anyways.
                     </p>
                 </div>
-                <a href='#contact' className="px-2 py-1 bg-background border-primary border-2 text-center text-2xl self-start mt-10 md:ml-0 ml-4 hover:rounded-bl-lg hover:rounded-tr-lg transition-all duration-200">Contact Me!</a>
+                <button
+                    className="px-2 py-1 bg-background border-primary border-2 text-center text-2xl self-start mt-10 md:ml-0 ml-4 hover:rounded-bl-lg hover:rounded-tr-lg transition-all duration-200"
+                    onClick={() => scrollToSection('contact', '', () => { }, undefined)}
+                >
+                    Contact Me!
+                </button>
             </div>
-            <div className="hidden xl:block mr-60">
+            <div className="hidden xl:block mr-60 z-20">
                 <img src={hero} alt="hero" onClick={toggleInverted} className={`
-                    'drop-shadow-xl animate-wiggle animate-infinite animate-duration-[100000ms] animate-ease-in-out'
+                    'drop-shadow-xl animate-wiggle animate-infinite animate-duration-[100000ms] animate-ease-in-out z-50'
                     ${inverted ? 'filter invert' : ''}
                     transition-all duration-500 ease-in-out
                     `} />

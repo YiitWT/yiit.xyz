@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useScrollSpy, scrollToSection, useInitialHashScroll } from '../utils/scrollSystem';
 import { useTranslation } from '../i18n/TranslationProvider';
 
 import type { FC } from 'react';
@@ -24,63 +25,8 @@ const Header: FC = () => {
         { code: 'FR', name: t('language_fr') },
     ];
 
-    function scrollToSection(sectionId: string, path: string) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            // Update URL without page reload
-            window.history.pushState({}, '', path);
-
-            // Smooth scroll to element
-            element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-            });
-
-            // Update active section
-            setActiveSection(sectionId);
-
-            // Close mobile menu if open
-            setIsMenuOpen(false);
-        } else {
-            // Fallback: navigate to the page if section doesn't exist
-            window.location.href = path;
-        }
-    }
-    // Scroll spy: update activeSection based on scroll position, never scroll the page or update the URL
-    useEffect(() => {
-        function handleScroll() {
-            const sections = routes.map(route => route.sectionId);
-            const scrollPosition = window.scrollY + 100; // Offset for header height
-            let found = false;
-            for (let i = sections.length - 1; i >= 0; i--) {
-                const section = document.getElementById(sections[i]);
-                if (section && section.offsetTop <= scrollPosition) {
-                    if (activeSection !== sections[i]) {
-                        setActiveSection(sections[i]);
-                    }
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                setActiveSection(sections[0]); // fallback to home
-            }
-        }
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [routes, activeSection]);
-
-    // Initial load: scroll to section if hash exists
-    useEffect(() => {
-        const hash = window.location.hash.replace('#', '');
-        if (hash) {
-            const element = document.getElementById(hash);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-                setActiveSection(hash);
-            }
-        }
-    }, [routes]);
+    useScrollSpy(routes.map(route => route.sectionId), setActiveSection, 100);
+    useInitialHashScroll(setActiveSection);
 
     const handleLanguageChange = (languageObj: any) => {
         setLanguage(languageObj.code);
@@ -89,7 +35,7 @@ const Header: FC = () => {
 
     const handleNavClick = (e: any, route: any) => {
         e.preventDefault();
-        scrollToSection(route.sectionId, route.path);
+        scrollToSection(route.sectionId, route.path, setActiveSection, setIsMenuOpen);
     };
 
     return (
