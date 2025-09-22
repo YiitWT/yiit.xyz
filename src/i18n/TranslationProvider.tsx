@@ -17,7 +17,12 @@ const translations: Record<string, Translations> = {
 };
 
 export const TranslationProvider = ({ children }: { children: ReactNode }) => {
-    const [language, setLanguage] = useState('EN');
+    const [language] = useState('EN');
+
+    // Maintenance mode: show alert and do not change language
+    const setLanguage = (lang: string) => {
+        alert('Language switching is temporarily disabled for maintenance.');
+    };
 
     const t = (key: string) => {
         const dict = translations[language] || {};
